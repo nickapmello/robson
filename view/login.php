@@ -16,14 +16,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $idusuario = $row['id'];
 
             // Verificar se já tem token válido
-            $sql = "SELECT token FROM login_control WHERE idusuario = ? AND expira > NOW()";
+            $sql = "SELECT token FROM login_control WHERE idusuario = ? AND expira > NOW() ORDER BY criado DESC LIMIT 1";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $idusuario);
             $stmt->execute();
             $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $token = $row['token'];
+            $log_acesso = $result->fetch_assoc();
+            if (isset($log_acesso['token'])) {
+                $token = $log_acesso['token'];
+                $response = ["status" => "1", "msg" => "Login bem-sucedido! Token válido.", "token" => $token];
             } else {
                 // Gerar novo token
                 $token = md5(uniqid(mt_rand(), true));
@@ -31,9 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("is", $idusuario, $token);
                 $stmt->execute();
+                $response = ["status" => "1", "msg" => "Login bem-sucedido! Novo token gerado.", "token" => $token];
             }
-
-            $response = ["status" => "1", "msg" => "Login bem-sucedido!", "token" => $token];
         } else {
             $response = ["status" => "0", "msg" => "Senha incorreta!"];
         }
@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 
 
 <!DOCTYPE html>
