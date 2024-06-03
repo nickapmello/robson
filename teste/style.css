@@ -1,0 +1,49 @@
+body {
+    background-color: #f7f7f7;
+    font-family: Arial, sans-serif;
+}
+.card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+.card-title {
+    color: #333333;
+}
+.form-floating label {
+    color: #666666;
+}
+.btn-cancel {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: none;
+    transition: all 0.3s ease;
+}
+.btn-cancel:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+.btn-login {
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+.btn-login:hover {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+.btn-login:focus {
+    box-shadow: 0 0 0 0.25rem rgba(46, 204, 113, 0.5);
+}
+.small {
+    color: #999999;
+}
